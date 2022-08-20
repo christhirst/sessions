@@ -26,6 +26,15 @@ func SessionSave(w http.ResponseWriter, r *http.Request, cookieID string, userID
 	return id.String(), nil
 }
 
+func SessionGet(w http.ResponseWriter, r *http.Request, cookieID string, userID string) (string, error) {
+	coo, err := r.Cookie(cookieID)
+	if err != nil {
+		log.Panic(err)
+	}
+
+	return coo.Value, err
+}
+
 func SessionExpire(w http.ResponseWriter, r *http.Request, cookieID string) (bool, error) {
 	expiration := time.Now().Add(-1 * time.Hour)
 	cookie := http.Cookie{Name: "goID", Expires: expiration, HttpOnly: true}
