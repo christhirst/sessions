@@ -12,7 +12,7 @@ import (
 func SessionSave(w http.ResponseWriter, r *http.Request, cookieID string) (bool, error) {
 	expiration := time.Now().Add(365 * 24 * time.Hour)
 	id := uuid.New()
-	cookie := http.Cookie{Name: "goID", Value: id.String(), Expires: expiration, HttpOnly: true}
+	cookie := http.Cookie{Name: cookieID, Value: id.String(), Expires: expiration, HttpOnly: true}
 	http.SetCookie(w, &cookie)
 
 	c, err := r.Cookie("goID")

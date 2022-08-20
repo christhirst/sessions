@@ -1,4 +1,4 @@
-module christhirst/sessions
+module github.com/christhirst/sessions
 
 go 1.19
 
