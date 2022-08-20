@@ -26,7 +26,7 @@ func SessionSave(w http.ResponseWriter, r *http.Request, cookieID string, userID
 	return id.String(), nil
 }
 
-func SessionGet(w http.ResponseWriter, r *http.Request, cookieID string, userID string) (string, error) {
+func SessionGet(w http.ResponseWriter, r *http.Request, cookieID string) (string, error) {
 	coo, err := r.Cookie(cookieID)
 	if err != nil {
 		log.Panic(err)
