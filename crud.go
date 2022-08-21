@@ -1,7 +1,6 @@
 package sessions
 
 import (
-	"errors"
 	"fmt"
 	"log"
 	"net/http"
@@ -10,25 +9,19 @@ import (
 	"github.com/google/uuid"
 )
 
-func SessionSave(w http.ResponseWriter, r *http.Request, cookieID string, userID string) (string, error) {
+func SessionSave(w http.ResponseWriter, r *http.Request, cookieID string) (http.Cookie, error) {
 	expiration := time.Now().Add(365 * 24 * time.Hour)
 	id := uuid.New()
 	cookie := http.Cookie{Name: cookieID, Value: id.String(), Expires: expiration, HttpOnly: true}
 	http.SetCookie(w, &cookie)
 
-	c, err := r.Cookie("user_session")
-	if err != nil {
-		log.Panic(err)
-		return "", errors.New("C")
-	}
-	fmt.Println(c)
-
-	return id.String(), nil
+	return cookie, nil
 }
 
 func SessionGet(w http.ResponseWriter, r *http.Request, cookieID string) (string, error) {
 	coo, err := r.Cookie(cookieID)
 	if err != nil {
+		fmt.Println(coo)
 		log.Panic(err)
 	}
 
