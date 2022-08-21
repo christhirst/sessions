@@ -21,10 +21,8 @@ func SessionSave(w http.ResponseWriter, r *http.Request, cookieID string) (http.
 func SessionGet(w http.ResponseWriter, r *http.Request, cookieID string) (string, error) {
 	coo, err := r.Cookie(cookieID)
 	if err != nil {
-		fmt.Println(coo)
-		log.Panic(err)
+		return "", err
 	}
-
 	return coo.Value, err
 }
 
