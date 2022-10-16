@@ -28,10 +28,10 @@ func SessionGet(w http.ResponseWriter, r *http.Request, cookieID string) (string
 
 func SessionExpire(w http.ResponseWriter, r *http.Request, cookieID string) (bool, error) {
 	expiration := time.Now().Add(-1 * time.Hour)
-	cookie := http.Cookie{Name: "user_session", Expires: expiration, HttpOnly: true}
+	cookie := http.Cookie{Name: cookieID, Expires: expiration, MaxAge: -1, HttpOnly: true}
 	http.SetCookie(w, &cookie)
 
-	c, err := r.Cookie("user_session")
+	c, err := r.Cookie(cookieID)
 	if err != nil {
 		log.Panic(err)
 	}
