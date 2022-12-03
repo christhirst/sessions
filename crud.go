@@ -14,7 +14,6 @@ func SessionSave(w http.ResponseWriter, r *http.Request, domain, cookieID string
 	id := uuid.New()
 	cookie := http.Cookie{Name: cookieID, Value: id.String(), Domain: domain, Expires: expiration, HttpOnly: true}
 	http.SetCookie(w, &cookie)
-
 	return cookie, nil
 }
 
