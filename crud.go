@@ -9,10 +9,10 @@ import (
 	"github.com/google/uuid"
 )
 
-func SessionSave(w http.ResponseWriter, r *http.Request, domain, cookieID string) (http.Cookie, error) {
+func SessionSave(w http.ResponseWriter, r *http.Request, cookieID string) (http.Cookie, error) {
 	expiration := time.Now().Add(365 * 24 * time.Hour)
 	id := uuid.New()
-	cookie := http.Cookie{Name: cookieID, Value: id.String(), Domain: domain, Expires: expiration, HttpOnly: true}
+	cookie := http.Cookie{Name: cookieID, Value: id.String(), Expires: expiration, HttpOnly: true}
 	http.SetCookie(w, &cookie)
 	return cookie, nil
 }
